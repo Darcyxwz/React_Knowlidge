@@ -23,14 +23,31 @@ if (updatedCheckedItems[task]) {
 const isChecked = checkedItems[task] || false;
 ```
 此时这种写法就可以使得答案一定为false！
+
+```js
+const updatedCheckedItems = { ...prevCheckedItems };
+delete updatedCheckedItems[task];
+```
+这样写可以删除object的一个键值对！（用delete）
 ## 可勾选列表（左边小正方形勾选框）
+用input进行处理
 ```HTML
 <li>
   <input type="checkbox" onChange={() => handleCheckboxChange('Item 2')} />
   Item 2
 </li>
+
+<li>
+  <input
+    type="checkbox"
+    checked={isChecked}
+    onChange={() => handleCheckboxChange(task)}
+  />
+  {task}
+</li>
 ```
 ## 搜索框处理（一个输入框+一个按钮）
+用form进行处理
 ```js
 function TasksToAdd({ onTasksToAddClick }) {
   const [inputValue, setInputValue] = useState("");
@@ -44,7 +61,6 @@ function TasksToAdd({ onTasksToAddClick }) {
     onTasksToAddClick(inputValue);
     setInputValue(''); // 清空输入
   };
-
 
   return (
     <>
@@ -62,3 +78,11 @@ function TasksToAdd({ onTasksToAddClick }) {
 }
 ```
 用onChange来处理
+## useState
+```js
+setCheckedItems((prevCheckedItems) => {
+    const updatedCheckedItems = { ...prevCheckedItems };
+    delete updatedCheckedItems[task];
+    return updatedCheckedItems;
+});
+```
