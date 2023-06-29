@@ -57,7 +57,7 @@ function TasksToAdd({ onTasksToAddClick }) {
   };
 
   const handleSubmit = (event) => { 
-    event.preventDefault();
+    event.preventDefault();//This line prevents the default behavior of the form submission event, which is to refresh the page or navigate to a new URL. By calling this method, you ensure that the form submission does not trigger a page refresh.
     onTasksToAddClick(inputValue);
     setInputValue(''); // 清空输入
   };
