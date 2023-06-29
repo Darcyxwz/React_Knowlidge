@@ -23,4 +23,42 @@ if (updatedCheckedItems[task]) {
 const isChecked = checkedItems[task] || false;
 ```
 此时这种写法就可以使得答案一定为false！
-## 
+## 可勾选列表（左边小正方形勾选框）
+```HTML
+<li>
+  <input type="checkbox" onChange={() => handleCheckboxChange('Item 2')} />
+  Item 2
+</li>
+```
+## 搜索框处理（一个输入框+一个按钮）
+```js
+function TasksToAdd({ onTasksToAddClick }) {
+  const [inputValue, setInputValue] = useState("");
+
+  const handleChange = (event) => { 
+    setInputValue(event.target.value);
+  };
+
+  const handleSubmit = (event) => { 
+    event.preventDefault();
+    onTasksToAddClick(inputValue);
+    setInputValue(''); // 清空输入
+  };
+
+
+  return (
+    <>
+      <div className="Task">Task</div>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <input type="text" value={inputValue} onChange={handleChange}  placeholder="请输入你要添加的任务" />
+        </div>
+        <div>
+          <button type = "submit">Save Task</button>
+        </div>
+      </form>
+    </>
+  );
+}
+```
+用onChange来处理
